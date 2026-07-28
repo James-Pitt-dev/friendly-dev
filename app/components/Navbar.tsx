@@ -16,7 +16,7 @@ const Navbar = () => {
                     <span>The Friendly Developer</span>
                 </NavLink>
 
-                {/* Desktop Nav */}
+                {/* Desktop Nav (displayed on md screens and up, hiddon on smaller)*/}
                 {/* hidden on small screens, then once md, turn it into flex box */}
                 <div className="hidden md:flex items-center gap-6"> 
                     <div className="space-x-4 text-sm text-gray-400">
@@ -27,7 +27,25 @@ const Navbar = () => {
                         <NavLink to='/contact' className={({isActive}) => isActive ? active : base}>Contact</NavLink>
                     </div>
                 </div>
+                {/* Mobile Nav Icon toggle icon(displayed on sm screens and hiddeon on md and up) */}
+                <div className="md:hidden flex items-center gap-4">
+                    <button onClick={() => setMenuOpen(!menuOpen)} title='Menu' className="text-blue-400 text-xl cursor-pointer">
+                        {menuOpen ? <FaTimes /> : <FaBars /> }
+                    </button>
+                </div>
             </div>
+                 {/* Mobile Nav (displayed on sm screens and hiddeon on md and up), hide drop down menu once link is clicked */}
+                {
+                    menuOpen && (
+                        <div className="md:hidden bg-gray-800 border-t border-gray-700 px-6 py-4 space-y-2 space-x-4 text-center">
+                            <NavLink to='/' className={({isActive}) => isActive ? active : base} onClick={() => setMenuOpen(false)}>Home</NavLink>
+                            <NavLink to='/projects' className={({isActive}) => isActive ? active : base} onClick={() => setMenuOpen(false)}>Projects</NavLink>
+                            <NavLink to='/blog' className={({isActive}) => isActive ? active : base} onClick={() => setMenuOpen(false)}>Blog</NavLink>
+                            <NavLink to='/about' className={({isActive}) => isActive ? active : base} onClick={() => setMenuOpen(false)}>About</NavLink>
+                            <NavLink to='/contact' className={({isActive}) => isActive ? active : base} onClick={() => setMenuOpen(false)}>Contact</NavLink>
+                        </div>
+                    )
+                }
         </nav>
      );
 }
